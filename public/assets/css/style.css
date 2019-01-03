@@ -1,0 +1,33 @@
+@import "bootstrap.min.css";
+
+/* Custom */
+
+.row-bottom-20 {
+    margin-bottom:20px;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#notice {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+#notice:nth-child(even) {
+  background-color: #dddddd;
+}
+a {color:inherit;}
+a:link {text-decoration: none}
+a:visited {text-decoration: none}
+a:active {text-decoration:  none}
+a:hover {
+  background-color: yellow;
+}
+textarea{
+  resize: none;
+}
