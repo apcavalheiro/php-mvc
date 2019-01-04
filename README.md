@@ -1,2 +1,2 @@
-Crud PHP puro sem Framework
+Crud PHP OO puro sem Framework
 utilizando padroes MVC, DAO e Singleton
