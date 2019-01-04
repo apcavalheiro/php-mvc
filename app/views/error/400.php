@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="/assets/css/style.css" rel="stylesheet">
     <link href="/assets/img/favicon.ico" rel="icon">
-    <title>MicroFramewok - PHP - Bad Request</title>
+    <title>PHP-MVC - Bad Request</title>
 </head>
 <body>
 <nav class="navbar navbar-default">
@@ -20,7 +20,7 @@
         <span class="icon-bar"></span>
       </button>
       <a href="/" class="navbar-brand">
-           FrameWork-PHP</a>
+           PHP - MVC</a>
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
@@ -39,7 +39,7 @@
 </div>
 </div>
 <footer>
-<p>&copy; 2018 Adriano Cavalheiro.</p>
+<p>&copy; 2019 Adriano Cavalheiro.</p>
 </footer>
     <script src="/assets/js/jquery.min.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>

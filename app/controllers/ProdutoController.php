@@ -9,9 +9,8 @@ class ProdutoController extends Controller {
         $this->render('produto/index');
     }
 
-    public function teste()
+    public function cadastro()
     {
-        echo "teste";
-        //$this->render('produto/index');
+        $this->render('produto/index');
     }
 }

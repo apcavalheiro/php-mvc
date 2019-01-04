@@ -62,8 +62,6 @@ class App
 
     public function url()
     {
-
-
         $path = $this->getUrl();
 
         $path = rtrim($path, '/');
@@ -84,7 +82,6 @@ class App
             unset($path[1]);
             $this->params = array_values($path);
         }
-
     }
 
     private function getUrl()
