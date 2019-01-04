@@ -2,15 +2,22 @@
 
 namespace App\Controllers;
 
-class ProdutoController extends Controller {
+use App\Utils\Connection;
+
+class ProdutoController extends Controller
+{
 
     public function index()
     {
-        $this->render('produto/index');
+
+        echo 'teste'
+        ;
     }
 
     public function cadastro()
     {
-        $this->render('produto/index');
+        $teste = Connection::getConnection();
+        dd($teste);
+
     }
 }

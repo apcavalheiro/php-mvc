@@ -10,7 +10,7 @@
                 </div>
                 <div class="form-group">
                     <label for="email">E-mail</label>
-                    <input type="email" class="form-control" name="email" placeholder="" value=""" required>
+                    <input type="email" class="form-control" name="email" placeholder="" value="" required>
                 </div>
 
                 <button type="submit" class="btn btn-success btn-sm">Salvar</button>

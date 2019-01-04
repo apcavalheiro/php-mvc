@@ -2,7 +2,6 @@
 
 namespace App\Controllers;
 
-
 abstract class Controller
 {
     protected $app;
@@ -11,19 +10,20 @@ abstract class Controller
     public function __construct($app)
     {
         $this->setViewParam('nameController', $app->getControllerName());
-       // $this->setViewParam('nameAction', $app->getAction());
+        // $this->setViewParam('nameAction', $app->getAction());
     }
 
     public function render($view)
     {
         $viewVar = $this->getViewVar();
-        
+        $Session = Session::class;
+
         require_once '../app/views/layouts/header.php';
         require_once '../app/views/layouts/menu.php';
         require_once '../app/views/' . $view . '.php';
         require_once '../app/views/layouts/footer.php';
     }
-     
+
     public function redirect($view)
     {
         header('Location: http://' . APP_HOST . $view);
@@ -34,7 +34,7 @@ abstract class Controller
     {
         return $this->viewVar;
     }
-     
+
     public function setViewParam($varName, $varValue)
     {
         if ($varName != "" && $varValue != "") {

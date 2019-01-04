@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     $('#form_cadastro').validate({
         rules: {
             nome: {
@@ -13,17 +13,20 @@ $(document).ready(function() {
             },
             descricao: {
                 required: true
+            },
+            email: {
+                required: true
             }
         },
-        highlight: function(element) {
+        highlight: function (element) {
             $(element).closest('.form-group').addClass('has-error');
         },
-        unhighlight: function(element) {
+        unhighlight: function (element) {
             $(element).closest('.form-group').removeClass('has-error');
         },
         errorElement: 'span',
         errorClass: 'help-block',
-        errorPlacement: function(error, element) {
+        errorPlacement: function (error, element) {
             if (element.parent('.input-group').length) {
                 error.insertAfter(element.parent());
             } else {
@@ -32,6 +35,9 @@ $(document).ready(function() {
         },
         messages: {
             nome: {
+                required: "Este campo não pode ser vazio"
+            },
+            email: {
                 required: "Este campo não pode ser vazio"
             },
             preco: {
