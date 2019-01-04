@@ -1,2 +1,2 @@
-MVC sem utilizar framework
-utilizando padroes DAO e Singleton
+Crud PHP puro sem Framework
+utilizando padroes MVC, DAO e Singleton
