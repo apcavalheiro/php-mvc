@@ -11,14 +11,14 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li <?php if($viewVar['nameController'] == "HomeController") { ?> class="active" <?php } ?>>
+                <li <?php if ($viewVar['nameController'] == "HomeController") {?> class="active" <?php }?>>
                     <a href="/" >Home</a>
                 </li>
-                <li <?php if($viewVar['nameController'] == "UsuarioController") { ?> class="active" <?php } ?>>
-                    <a href="/usuario/cadastro" >Cadastro de Usuário</a>
+                <li <?php if ($viewVar['nameController'] == "UsuarioController") {?> class="active" <?php }?>>
+                    <a href="/usuario" >Usuários</a>
                 </li>
-                 <li <?php if ($viewVar['nameController'] == "ProdutoController") { ?> class="active" <?php } ?>>
-                    <a href="/produto/cadastro" >Cadastro de Produto</a>
+                 <li <?php if ($viewVar['nameController'] == "ProdutoController") {?> class="active" <?php }?>>
+                    <a href="/produto/cadastro" >Produtos</a>
                 </li>
             </ul>
         </div>

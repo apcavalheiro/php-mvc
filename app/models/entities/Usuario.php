@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Entidades;
+namespace App\Models\Entities;
 
 class Usuario
 {

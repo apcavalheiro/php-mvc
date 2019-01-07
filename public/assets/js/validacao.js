@@ -57,3 +57,7 @@ $(document).ready(function () {
         maxlength: "Não insira mais do que {0} caracteres"
     });
 });
+
+setTimeout(function () {
+    $('#notice').fadeOut('fast');
+}, 5000);

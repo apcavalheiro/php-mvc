@@ -17,13 +17,18 @@ class Session
         return false;
     }
 
-    public static function unsetSession($session)
+    public static function getFormSession($key)
     {
-        if (is_array[$session]) {
+        return (isset($_SESSION['form'][$key])) ? $_SESSION['form'][$key] : "";
+    }
+
+    public static function clearSession($session)
+    {
+        if (is_array([$session])) {
             foreach ($session as $key) {
                 unset($_SESSION[$key]);
             }
         }
-        unset($_SESSION[$session]);
+        unset($_SESSION['$session']);
     }
 }

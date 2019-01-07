@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Utils\Session;
+
 abstract class Controller
 {
     protected $app;
@@ -10,7 +12,7 @@ abstract class Controller
     public function __construct($app)
     {
         $this->setViewParam('nameController', $app->getControllerName());
-        // $this->setViewParam('nameAction', $app->getAction());
+        $this->setViewParam('nameAction', $app->getAction());
     }
 
     public function render($view)
@@ -26,7 +28,7 @@ abstract class Controller
 
     public function redirect($view)
     {
-        header('Location: http://' . APP_HOST . $view);
+        header('Location:' . $view);
         exit;
     }
 
