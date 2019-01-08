@@ -32,12 +32,11 @@ class UsuarioController extends Controller
         $usuario->setEmail($_POST['email']);
 
         Session::setSession('form', $_POST);
-
         $usuarioDao = new UsuarioDao();
-
         if ($usuarioDao->emailExist($_POST['email'])) {
             return Redirect::route("/usuario/cadastro", [
-                'errors' => ['Email já existe na base de dados!']]);
+                'errors' => ['Email já existe na base de dados!']
+            ]);
         }
 
         $validation = new ValidationUser();
@@ -50,10 +49,11 @@ class UsuarioController extends Controller
             Session::clearSession('errors');
         }
 
-       $usuarioDao->toSave($usuario);
-            return Redirect::route("/usuario/index", [
-                'success' => ['Usuário salvo']]);
-            Session::clearSession(['form', 'errors', 'success']);
+        $usuarioDao->toSave($usuario);
+        return Redirect::route("/usuario/index", [
+            'success' => ['Usuário salvo']
+        ]);
+        Session::clearSession(['form', 'errors', 'success']);
     }
 
     public function edicao($params)
@@ -65,7 +65,8 @@ class UsuarioController extends Controller
 
         if (!$usuario) {
             return Redirect::route("/usuario", [
-                'errors' => ['Usuário inexistente!']]);
+                'errors' => $result->getErrors()
+            ]);
             Session::clearSession('errors');
         }
 
@@ -82,21 +83,21 @@ class UsuarioController extends Controller
         $usuario->setEmail($_POST['email']);
         Session::setSession('form', $_POST);
         $usuarioDao = new UsuarioDao();
-      
+
         $validation = new ValidationUser();
         $result = $validation->validate($usuario);
 
-        if($result->getErrors()){
-         return Redirect::route("/usuario/edicao/".$_POST['id'],[
+        if ($result->getErrors()) {
+            return Redirect::route("/usuario/edicao/" . $_POST['id'], [
                 'errors' => $result->getErrors()
             ]);
             Session::clearSession('errors');
         }
-            return Redirect::route("/usuario", [
-                'success' => ['Usuário atualizado!']
-            ]);
-            Session::clearSession(['form', 'errors', 'success']);
-       
+        return Redirect::route("/usuario", [
+            'success' => ['Usuário atualizado!']
+        ]);
+        Session::clearSession(['form', 'errors', 'success']);
+
     }
 
     public function exclusao($params)
@@ -106,14 +107,16 @@ class UsuarioController extends Controller
         $usuario = new Usuario();
         $usuario->setId($id);
 
-        
+
         if (!$usuarioDao->remove($usuario)) {
             return Redirect::route("/usuario/cadastro", [
-                'errors' => ['Erro ao excluir!']]);
+                'errors' => ['Erro ao excluir!']
+            ]);
             Session::clearSession('errors');
         }
         return Redirect::route("/usuario/index", [
-            'success' => ['Usuário excluído!']]);
+            'success' => ['Usuário excluído!']
+        ]);
         Session::clearSession(['form', 'errors', 'success']);
     }
 }
