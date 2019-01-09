@@ -17,6 +17,7 @@
                         <span class="input-group-addon input-sm" id="basic-addon1">
                             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                         </span>
+
                         <input type="text" placeholder="Buscar conteudo" required value="<?php echo $viewVar['buscaProduto']; ?>"
                             class="form-control input-sm" name="buscaProduto" />
                         <div class="input-group-btn">

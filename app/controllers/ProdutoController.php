@@ -24,22 +24,24 @@ class ProdutoController extends Controller
 
     public function getByPagination()
     {
+        $produtoDao = new ProdutoDao();
         $paginaSelecionada = isset($_GET['paginaSelecionada']) ? $_GET['paginaSelecionada'] : 1;
         $totalPorPagina = isset($_GET['totalPorPagina']) ? $_GET['totalPorPagina'] : 5;
-        $produtoDao = new ProdutoDao();
 
         if (isset($_GET['buscaProduto'])) {
+            $buscaProduto = $_GET['buscaProduto'];
             $listaProdutos = $produtoDao->buscaComPaginacao($_GET['buscaProduto'], $totalPorPagina, $paginaSelecionada);
-
             $paginacao = new Paginacao($listaProdutos);
-            self::setViewParam('buscaProduto', $_GET['buscaProduto']);
-            self::setViewParam('paginacao', $paginacao->criarLink($_GET['buscaProduto']));
+            echo $buscaProduto;
+            self::setViewParam('buscaProduto', $buscaProduto);
+            self::setViewParam('paginacao', $paginacao->criarLink($buscaProduto));
             self::setViewParam('listProducts', $listaProdutos['resultado']);
         }
 
         self::setViewParam('totalPorPagina', $totalPorPagina);
         $this->render('/produto/index');
     }
+
     public function totalPorPagina()
     {
         if (isset($_POST['totalPorPagina'])) {
@@ -81,6 +83,7 @@ class ProdutoController extends Controller
         return Redirect::route("/produto/index", [
             'success' => ['Produto salvo com sucesso!']
         ]);
+
         Session::clearSession(['form', 'errors', 'success']);
     }
 
@@ -109,6 +112,7 @@ class ProdutoController extends Controller
         $produto->setId($_POST['id']);
         $produto->setNome($_POST['nome']);
         $produto->setPreco($_POST['preco']);
+        $produto->setStatus($_POST['status']);
         $produto->setQuantidade($_POST['quantidade']);
         $produto->setDescricao($_POST['descricao']);
         Session::setSession('form', $_POST);

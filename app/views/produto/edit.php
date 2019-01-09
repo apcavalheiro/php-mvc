@@ -32,6 +32,12 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="status">Status</label>
+                    <input type="text" class="form-control" name="status" value="<?php echo $viewVar['produto']->getStatus(); ?>"
+                        required>
+                </div>
+
+                <div class="form-group">
                     <label for="quantidade">Quantidade</label>
                     <input type="number" class="form-control" name="quantidade" id="quantidade" placeholder="" value="<?php echo $viewVar['produto']->getQuantidade(); ?>"
                         required>

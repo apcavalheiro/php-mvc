@@ -20,7 +20,7 @@ class ProdutoDao extends BaseDao
         $resultado = $this->select(
             "SELECT * FROM produto as produto $whereBusca LIMIT $inicio,$totalPorPagina"
         );
-        $totalLinhas = (int)$resultadoTotal->fetchColumn(0);
+        $totalLinhas = $resultadoTotal->fetch()['total'];
 
         return [
             'paginaSelecionada' => $paginaSelecionada,
