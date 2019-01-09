@@ -3,6 +3,7 @@
 namespace App\Models\Entities;
 
 use DateTime;
+use App\Models\Entities\Marca;
 
 class Produto
 {
@@ -14,7 +15,12 @@ class Produto
     private $quantidade;
     private $descricao;
     private $dataCadastro;
+    private $marca;
 
+    public function __construct()
+    {
+        $this->marca = new Marca();
+    }
     public function getId()
     {
         return $this->id;
@@ -107,6 +113,23 @@ class Produto
     public function setStatus($status)
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getMarca()
+    {
+        return $this->marca;
+    }
+
+    public function getMarcaId()
+    {
+        return $this->marca_id;
+    }
+
+    public function setMarcaId($marca_id)
+    {
+        $this->marca_id = $marca_id;
 
         return $this;
     }

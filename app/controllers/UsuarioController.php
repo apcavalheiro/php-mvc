@@ -37,6 +37,7 @@ class UsuarioController extends Controller
             return Redirect::route("/usuario/cadastro", [
                 'errors' => ['Email já existe na base de dados!']
             ]);
+            Session::clearSession('errors');
         }
 
         $validation = new ValidationUser();

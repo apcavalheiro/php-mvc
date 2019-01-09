@@ -29,18 +29,65 @@ class ProdutoDao extends BaseDao
             'resultado' => $resultado->fetchAll(\PDO::FETCH_CLASS, Produto::class)
         ];
     }
+
     public function list($id = null)
     {
         if ($id) {
             $result = $this->select(
-                "SELECT * FROM produto WHERE id = $id"
+                "SELECT p.id as idProduto,
+                        m.id as idMarca,
+                        p.nome as nomeProduto, 
+                        p.preco, 
+                        p.quantidade, 
+                        p.descricao, 
+                        m.nome as nomeMarca 
+                    FROM produto as p
+                INNER JOIN marca as m ON p.marca_id = m.id
+                WHERE p.id = $id"
             );
-            return $result->fetchObject(Produto::class);
+            $dataSetProdutos = $result->fetch();
+            if ($dataSetProdutos) {
+                $produto = new Produto();
+                $produto->setId($dataSetProdutos['idProduto']);
+                $produto->setNome($dataSetProdutos['nomeProduto']);
+                $produto->setPreco($dataSetProdutos['preco']);
+                $produto->setQuantidade($dataSetProdutos['quantidade']);
+                $produto->setDescricao($dataSetProdutos['descricao']);
+                $produto->getMarca()->setNome($dataSetProdutos['nomeMarca']);
+                $produto->getMarca()->setId($dataSetProdutos['idMarca']);
+
+                return $produto;
+            }
+            return false;
         } else {
             $result = $this->select(
-                "SELECT * FROM produto"
+                'SELECT  p.id as idProduto, 
+                              p.nome as nomeProduto, 
+                              p.preco, 
+                              m.nome as nomeMarca 
+                              FROM produto as p
+                      INNER JOIN marca as m ON p.marca_id = m.id 
+                      '
             );
-            return $result->fetchAll(\PDO::FETCH_CLASS, Produto::class);
+            $dataSetProdutos = $result->fetchAll();
+            if ($dataSetProdutos) {
+
+                $listaProdutos = [];
+
+                foreach ($dataSetProdutos as $dataSetProduto) {
+                    $produto = new Produto();
+                    $produto->setId($dataSetProduto['idProduto']);
+                    $produto->setNome($dataSetProduto['nomeProduto']);
+                    $produto->setPreco($dataSetProduto['preco']);
+                    $produto->getMarca()->setNome($dataSetProduto['nomeMarca']);
+
+                    $listaProdutos[] = $produto;
+                }
+
+                return $listaProdutos;
+            }
+
+            return false;
         }
     }
 
@@ -53,17 +100,19 @@ class ProdutoDao extends BaseDao
             $ean = $produto->getEan();
             $quantidade = $produto->getQuantidade();
             $descricao = $produto->getDescricao();
+            $marca_id = $produto->getMarca()->getId();
 
             return $this->insert(
                 'produto',
-                ":nome,:status,:preco,:quantidade,:ean,:descricao",
+                ":nome,:status,:preco,:quantidade,:ean,:descricao,:marca_id",
                 [
                     ':nome' => $nome,
                     ':status' => $status,
                     ':preco' => $preco,
                     ':quantidade' => $quantidade,
                     ':ean' => $ean,
-                    ':descricao' => $descricao
+                    ':descricao' => $descricao,
+                    ':marca_id' => $marca_id
                 ]
             );
         } catch (\Exception $e) {
@@ -81,10 +130,11 @@ class ProdutoDao extends BaseDao
             $ean = $produto->getEan();
             $quantidade = $produto->getQuantidade();
             $descricao = $produto->getDescricao();
+            $marca_id = $produto->getMarca()->getId();
 
             return $this->update(
                 'produto',
-                "nome = :nome,  status = :status, preco = :preco, quantidade = :quantidade, ean = :ean, descricao = :descricao",
+                "nome = :nome,  status = :status, preco = :preco, quantidade = :quantidade, ean = :ean, descricao = :descricao, marca_id = :marca_id",
                 [
                     ':id' => $id,
                     ':nome' => $nome,
@@ -93,6 +143,7 @@ class ProdutoDao extends BaseDao
                     ':ean' => $ean,
                     ':quantidade' => $quantidade,
                     ':descricao' => $descricao,
+                    ':marca_id' => $marca_id
                 ],
                 "id = :id"
             );

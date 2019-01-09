@@ -6,7 +6,7 @@ class Session
 {
     public static function setSession($session, $value)
     {
-        $_SESSION['$session'] = $value;
+        $_SESSION[$session] = $value;
     }
 
     public static function getSession($session)

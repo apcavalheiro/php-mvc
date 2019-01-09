@@ -25,6 +25,10 @@ class ValidationProduct
         if (empty($produto->getDescricao())) {
             $insert->addErro('descricao', "Descrição: Este campo não pode ser vazio");
         }
+
+        if (empty($produto->getMarca()->getId())) {
+            $insert->addErro('marca_id', "Marca: Este campo não pode ser vazio");
+        }
         return $insert;
     }
 }
