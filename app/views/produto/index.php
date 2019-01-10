@@ -18,8 +18,8 @@
                             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                         </span>
 
-                        <input type="text" placeholder="Buscar conteudo" required value="<?php echo $viewVar['buscaProduto']; ?>"
-                            class="form-control input-sm" name="buscaProduto" />
+                        <input type="text" placeholder="Buscar conteudo" required value="<?php echo $viewVar['busca']; ?>"
+                            class="form-control input-sm" name="busca" />
                         <div class="input-group-btn">
                             <button class="btn btn-success btn-sm" type="submit">Buscar</button>
                         </div>
@@ -66,7 +66,8 @@
                 <td class="info">Quantidade</td>
                 <td class="info"></td>
             </tr>
-            <?php foreach ($viewVar['listProducts'] as $produto) { ?>
+            <?php
+            foreach ($viewVar['listProducts'] as $produto) { ?>
             <tr class="<?php echo ($produto->getStatus() == 'N') ? " linhaDesativado" : "" ; ?>">
                 <td>
                     <?php echo $produto->getNome(); ?>
@@ -82,12 +83,11 @@
                     <?php echo date("d/m/Y H:i", $produto->getDataCadastro()); ?>
                 </td>
                 <td>R$
-                    <?php echo $produto->getPreco(); ?>
+                    <?php echo number_format($produto->getPreco(), 2, ',', '.'); ?>
                 </td>
                 <td>
                     <?php echo $produto->getQuantidade(); ?>
                 </td>
-
                 <td>
                     <a href="/produto/edicao/<?php echo $produto->getId(); ?>" class="btn btn-info btn-sm">Editar</a>
                     <a href="/produto/exclusao/<?php echo $produto->getId(); ?>" class="btn btn-danger btn-sm">Excluir</a>

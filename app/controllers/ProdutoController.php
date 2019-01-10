@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Utils\Session;
 use App\Utils\Redirect;
 use App\Utils\Paginacao;
+use App\Models\Dao\MarcaDao;
 use App\Models\Dao\ProdutoDao;
 use App\Models\Entities\Produto;
 use App\Models\Validation\ValidationProduct;
@@ -16,9 +17,6 @@ class ProdutoController extends Controller
         $produtoDao = new ProdutoDao();
         self::setViewParam('listProducts', $produtoDao->list());
         $this->render('/produto/index');
-
-        $this->render('/produto/index');
-
         Session::clearSession(['success', 'errors', 'form']);
     }
 
@@ -28,16 +26,15 @@ class ProdutoController extends Controller
         $paginaSelecionada = isset($_GET['paginaSelecionada']) ? $_GET['paginaSelecionada'] : 1;
         $totalPorPagina = isset($_GET['totalPorPagina']) ? $_GET['totalPorPagina'] : 5;
 
-        if (isset($_GET['buscaProduto'])) {
-            $buscaProduto = $_GET['buscaProduto'];
-            $listaProdutos = $produtoDao->buscaComPaginacao($_GET['buscaProduto'], $totalPorPagina, $paginaSelecionada);
+        if (isset($_GET['busca'])) {
+
+            $buscaProduto = $_GET['busca'];
+            $listaProdutos = $produtoDao->productByPagination($_GET['busca'], $totalPorPagina, $paginaSelecionada);
             $paginacao = new Paginacao($listaProdutos);
-            echo $buscaProduto;
-            self::setViewParam('buscaProduto', $buscaProduto);
-            self::setViewParam('paginacao', $paginacao->criarLink($buscaProduto));
+            self::setViewParam('busca', $buscaProduto);
+            self::setViewParam('paginacao', $paginacao->criarLink('produto', $buscaProduto));
             self::setViewParam('listProducts', $listaProdutos['resultado']);
         }
-
         self::setViewParam('totalPorPagina', $totalPorPagina);
         $this->render('/produto/index');
     }
@@ -55,7 +52,10 @@ class ProdutoController extends Controller
 
     public function cadastro()
     {
-        $this->render('produto/cadastro');
+        $marcaDao = new MarcaDao();
+        self::setViewParam('listaMarcas', $marcaDao->list());
+        $this->render('/produto/cadastro');
+
         Session::clearSession(['success', 'errors', 'form']);
     }
 
@@ -68,6 +68,7 @@ class ProdutoController extends Controller
         $produto->setQuantidade($_POST['quantidade']);
         $produto->setEan($_POST['ean']);
         $produto->setDescricao($_POST['descricao']);
+        $produto->getMarca()->setId($_POST['marca_id']);
 
         Session::setSession('form', $_POST);
         $validation = new ValidationProduct();
@@ -96,11 +97,12 @@ class ProdutoController extends Controller
 
         if (!$produto) {
             return Redirect::route("/produto", [
-                'errors' => $result->getErrors()
+                'errors' => ['Produto não existe!']
             ]);
             Session::clearSession('errors');
         }
-
+        $marcaDao = new MarcaDao();
+        self::setViewParam('listaMarcas', $marcaDao->list());
         self::setViewParam('produto', $produto);
         $this->render('/produto/edit');
         Session::clearSession(['form', 'errors', 'success']);
@@ -115,6 +117,7 @@ class ProdutoController extends Controller
         $produto->setStatus($_POST['status']);
         $produto->setQuantidade($_POST['quantidade']);
         $produto->setDescricao($_POST['descricao']);
+        $produto->getMarca()->setId($_POST['marca_id']);
         Session::setSession('form', $_POST);
         $produtoDao = new ProdutoDao();
 

@@ -16,10 +16,10 @@ class Paginacao
 
     }
 
-    public function criarLink($buscaProduto = "")
+    public function criarLink($page, $busca = "")
     {
         $quantidadePagina = ceil($this->totalLinhas / $this->totalPorPagina);
-        $queryString = (isset($buscaProduto)) ? "&buscaProduto=$buscaProduto" : "";
+        $queryString = (isset($busca)) ? "&busca=$busca" : "";
         $queryString .= (!empty($this->totalPorPagina)) ? '&totalPorPagina=' . $this->totalPorPagina : '';
 
         $primeiraPagina = 1;
@@ -30,13 +30,13 @@ class Paginacao
         $desabilita = ($this->paginaSelecionada == $primeiraPagina) ? "disabled" : "";
         $html .= "<li class='page-item $desabilita '>";
         $html .= ($this->paginaSelecionada == $primeiraPagina) ? '<a href="#">&laquo; Anterior </a>' :
-            '<a href="/produto/getByPagination?paginaSelecionada=' . ($this->paginaSelecionada - 1) . $queryString . '">&laquo; Anterior </a>';
+            '<a href="/' . $page . '/getByPagination?paginaSelecionada=' . ($this->paginaSelecionada - 1) . $queryString . '">&laquo; Anterior </a>';
         $html .= '</li>';
         $html .= "<li class='page-item active'><a>" . $this->paginaSelecionada . " de " . $quantidadePagina . "</a></li>";
         $desabilita = ($this->paginaSelecionada == $quantidadePagina) ? "disabled" : "";
         $html .= "<li class='page-item  $desabilita  '>";
         $html .= ($this->paginaSelecionada == $quantidadePagina) ? '<a href="#">Proxima &raquo;</a>' :
-            '<a href="/produto/getByPagination?paginaSelecionada=' . ($this->paginaSelecionada + 1) . $queryString . '">
+            '<a href="/' . $page . '/getByPagination?paginaSelecionada=' . ($this->paginaSelecionada + 1) . $queryString . '">
            Proxima &raquo;</a>';
         $html .= '</li>';
         $html .= '</ul>';

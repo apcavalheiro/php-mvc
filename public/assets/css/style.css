@@ -3,7 +3,7 @@
 /* Custom */
 
 .row-bottom-20 {
-    margin-bottom:20px;
+  margin-bottom: 20px;
 }
 
 table {
@@ -21,13 +21,27 @@ table {
 #notice:nth-child(even) {
   background-color: #dddddd;
 }
-a {color:inherit;}
-a:link {text-decoration: none}
-a:visited {text-decoration: none}
-a:active {text-decoration:  none}
+
+a {
+  color: inherit;
+}
+
+a:link {
+  text-decoration: none
+}
+
+a:visited {
+  text-decoration: none
+}
+
+a:active {
+  text-decoration: none
+}
+
 a:hover {
   background-color: yellow;
 }
-textarea{
+
+textarea {
   resize: none;
 }

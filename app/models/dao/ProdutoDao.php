@@ -6,7 +6,7 @@ use App\Models\Entities\Produto;
 
 class ProdutoDao extends BaseDao
 {
-    public function buscaComPaginacao($buscaProduto, $totalPorPagina, $paginaSelecionada)
+    public function productByPagination($buscaProduto, $totalPorPagina, $paginaSelecionada)
     {
         $paginaSelecionada = (!$paginaSelecionada) ? 1 : $paginaSelecionada;
         $inicio = (($paginaSelecionada - 1) * $totalPorPagina);
@@ -38,6 +38,8 @@ class ProdutoDao extends BaseDao
                         m.id as idMarca,
                         p.nome as nomeProduto, 
                         p.preco, 
+                        p.status,
+                        p.ean,
                         p.quantidade, 
                         p.descricao, 
                         m.nome as nomeMarca 
@@ -51,6 +53,8 @@ class ProdutoDao extends BaseDao
                 $produto->setId($dataSetProdutos['idProduto']);
                 $produto->setNome($dataSetProdutos['nomeProduto']);
                 $produto->setPreco($dataSetProdutos['preco']);
+                $produto->setStatus($dataSetProduto['status']);
+                $produto->setEan($dataSetProduto['ean']);
                 $produto->setQuantidade($dataSetProdutos['quantidade']);
                 $produto->setDescricao($dataSetProdutos['descricao']);
                 $produto->getMarca()->setNome($dataSetProdutos['nomeMarca']);
@@ -63,12 +67,16 @@ class ProdutoDao extends BaseDao
             $result = $this->select(
                 'SELECT  p.id as idProduto, 
                               p.nome as nomeProduto, 
-                              p.preco, 
+                              p.preco,
+                              p.status,
+                              p.ean,
+                              p.quantidade,
+                              p.descricao, 
                               m.nome as nomeMarca 
                               FROM produto as p
-                      INNER JOIN marca as m ON p.marca_id = m.id 
-                      '
+                      INNER JOIN marca as m ON p.marca_id = m.id'
             );
+
             $dataSetProdutos = $result->fetchAll();
             if ($dataSetProdutos) {
 
@@ -79,6 +87,10 @@ class ProdutoDao extends BaseDao
                     $produto->setId($dataSetProduto['idProduto']);
                     $produto->setNome($dataSetProduto['nomeProduto']);
                     $produto->setPreco($dataSetProduto['preco']);
+                    $produto->setStatus($dataSetProduto['status']);
+                    $produto->setEan($dataSetProduto['ean']);
+                    $produto->setQuantidade($dataSetProduto['quantidade']);
+                    $produto->setDescricao($dataSetProduto['descricao']);
                     $produto->getMarca()->setNome($dataSetProduto['nomeMarca']);
 
                     $listaProdutos[] = $produto;

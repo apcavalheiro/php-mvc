@@ -1,13 +1,18 @@
+@import "bootstrap.min.css";
+
+/* Custom */
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
     position: relative;
     min-height: 100%;
 }
+
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
 }
+
 .footer {
     position: absolute;
     bottom: 0;
@@ -21,25 +26,31 @@ body {
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
 
-body > .container {
+body>.container {
     padding: 60px 15px 0;
 }
+
 .container .text-muted {
     margin: 20px 0;
 }
 
-.footer > .container {
+.footer>.container {
     padding-right: 15px;
     padding-left: 15px;
 }
 
-.buscaDireita{
+.buscaDireita {
     float: right;
 }
 
-.linhaDesativado{
-    color:red;
+.linhaDesativado {
+    color: red;
 }
-.cenralizado{
+
+.cenralizado {
     text-align: center;
+}
+
+textarea {
+    resize: none;
 }

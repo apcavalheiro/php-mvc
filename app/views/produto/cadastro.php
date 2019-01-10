@@ -45,7 +45,20 @@
                     <label for="descricao">Descrição</label>
                     <textarea class="form-control" name="descricao" placeholder="Descrição do produto" required><?php echo $Session::getFormSession('descricao'); ?></textarea>
                 </div>
+                <div class="form-group">
+                    <label for="marca">Marca</label>
+                    <select class="form-control" name="marca_id" required>
+                        <?php foreach ($viewVar['listaMarcas'] as $marca) { ?>
+                        <option value="<?php echo $marca->getId(); ?>" <?php echo ($Session::getFormSession('marca_id')==$marca->getId())
+                            ? "selected" : ""; ?>>
+                            <?php echo $marca->getNome(); ?>
+                        </option>
+                        <?php 
+                    } ?>
+                    </select>
+                </div>
                 <button type="submit" class="btn btn-success btn-sm">Salvar</button>
+                <button type="reset" class="btn btn-default btn-sm">Limpar</button>
             </form>
         </div>
         <div class=" col-md-3"></div>

@@ -14,18 +14,23 @@
             <ul class="nav navbar-nav">
                 <li <?php if ($viewVar['nameController']=="HomeController" ) { ?> class="active"
                     <?php 
-                                                                                            } ?>>
+                } ?>>
                     <a href="/">Home</a>
                 </li>
                 <li <?php if ($viewVar['nameController']=="UsuarioController" ) { ?> class="active"
                     <?php 
-                                                                                                } ?>>
+                } ?>>
                     <a href="/usuario">Usuários</a>
                 </li>
                 <li <?php if ($viewVar['nameController']=="ProdutoController" ) { ?> class="active"
                     <?php 
-                                                                                                } ?>>
+                } ?>>
                     <a href="/produto">Produtos</a>
+                </li>
+                <li <?php if ($viewVar['nameController']=="MarcaController" ) { ?> class="active"
+                    <?php 
+                } ?>>
+                    <a href="/marca">Marcas</a>
                 </li>
             </ul>
         </div>

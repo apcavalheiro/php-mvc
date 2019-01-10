@@ -2,6 +2,8 @@
 
 namespace App\Models\Dao;
 
+use App\Models\Entities\Marca;
+
 class MarcaDao extends BaseDao
 {
     public function list($id = null)
@@ -25,6 +27,7 @@ class MarcaDao extends BaseDao
             $result = $this->select(
                 "SELECT count(*) as total FROM produto WHERE marca_id= $id"
             );
+
             return $result->fetch()['total'];
         }
         return false;
@@ -49,7 +52,7 @@ class MarcaDao extends BaseDao
     public function atualizar(Marca $marca)
     {
         try {
-            $id = $id->getId();
+            $id = $marca->getId();
             $nome = $marca->getNome();
             return $this->update(
                 'marca',

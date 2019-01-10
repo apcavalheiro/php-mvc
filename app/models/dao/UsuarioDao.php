@@ -18,8 +18,31 @@ class UsuarioDao extends BaseDao
             throw new \Exception("Erro no acesso a dados!", 500);
         }
     }
+    public function userByPagination($busca, $totalPorPagina, $paginaSelecionada)
+    {
+        $paginaSelecionada = (!$paginaSelecionada) ? 1 : $paginaSelecionada;
+        $inicio = (($paginaSelecionada - 1) * $totalPorPagina);
+        $whereBusca = " WHERE nome 
+                                LIKE '%$busca%' OR nome 
+                                LIKE '%$busca%' OR email = '$busca'";
+        $resultadoTotal = $this->select(
+            "SELECT count(*) as total FROM usuario $whereBusca "
+        );
 
-    function list($id = null) {
+        $resultado = $this->select(
+            "SELECT * FROM usuario as usuario $whereBusca LIMIT $inicio,$totalPorPagina"
+        );
+        $totalLinhas = $resultadoTotal->fetch()['total'];
+
+        return [
+            'paginaSelecionada' => $paginaSelecionada,
+            'totalPorPagina' => $totalPorPagina,
+            'totalLinhas' => $totalLinhas,
+            'resultado' => $resultado->fetchAll(\PDO::FETCH_CLASS, Usuario::class)
+        ];
+    }
+    function list($id = null)
+    {
         if ($id) {
             $result = $this->select(
                 "SELECT * FROM usuario WHERE id = '$id'"
@@ -40,7 +63,8 @@ class UsuarioDao extends BaseDao
             $nome = $usuario->getNome();
             $email = $usuario->getEmail();
             return $this->insert(
-                'usuario', ':nome,:email',
+                'usuario',
+                ':nome,:email',
                 [
                     ':nome' => $nome,
                     ':email' => $email,
@@ -58,7 +82,8 @@ class UsuarioDao extends BaseDao
             $nome = $usuario->getNome();
             $email = $usuario->getEmail();
             return $this->update(
-                'usuario', "nome = :nome, email = :email",
+                'usuario',
+                "nome = :nome, email = :email",
                 [
                     ':id' => $id,
                     ':nome' => $nome,

@@ -11,23 +11,30 @@ class ValidationProduct
         $insert = new ValidationResult();
 
         if (empty($produto->getNome())) {
-            $insert->addErro('nome', "Nome: Este campo não pode ser vazio");
+            $insert->addErrors('nome', "Nome: Este campo não pode ser vazio");
         }
 
         if (empty($produto->getPreco())) {
-            $insert->addErro('preco', "Preço: Este campo não pode ser vazio");
+            $insert->addErrors('preco', "Preço: Este campo não pode ser vazio");
+        }
+
+        if (empty($produto->getStatus())) {
+            $insert->addErrors('status', "Status: Este campo não pode ser vazio");
         }
 
         if (empty($produto->getQuantidade())) {
-            $insert->addErro('quantidade', "Quantidade: Este campo não pode ser vazio");
+            $insert->addErrors('quantidade', "Quantidade: Este campo não pode ser vazio ou ter valor nulo");
+        }
+        if ($produto->getQuantidade() == 0) {
+            $produto->setQuantidade('Zerado');
         }
 
         if (empty($produto->getDescricao())) {
-            $insert->addErro('descricao', "Descrição: Este campo não pode ser vazio");
+            $insert->addErrors('descricao', "Descrição: Este campo não pode ser vazio");
         }
 
         if (empty($produto->getMarca()->getId())) {
-            $insert->addErro('marca_id', "Marca: Este campo não pode ser vazio");
+            $insert->addErrors('marca_id', "Marca: Este campo não pode ser vazio");
         }
         return $insert;
     }
